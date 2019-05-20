@@ -1,15 +1,14 @@
 from itertools import combinations
 from typing import (
-    Dict,
-    Set,
     Iterable,
     Tuple,
     Optional
 )
 
-
-Graph = Dict[int:Dict[int:int]]
-Subgraph = Set[int]
+from .local_types import (
+    Graph,
+    Subgraph
+)
 
 
 def fast_kernighan_lin(graph: Graph, subgraphs: Iterable[Subgraph]) -> bool:
