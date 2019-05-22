@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #fdfdfd;
+    }
+
+    nav.navbar {
+        background-color: #fff;
+        height: 75px;
+        border-bottom: 1px solid #dadada;
+    }
+
+    .input-data-card {
+        margin-top: 25px;
+        width: 100%
+    }
+
+    .result-card {
+        margin: 50px 0;
+        width: 100%;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff;">
+    <a class="navbar-brand" href="#">Kernighan-Lin</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+            aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Розбиття графу <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Генерація рандомного графу</a>
+            </li>
+        </ul>
+        <a class="nav-link" href="#">Про курсову</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card input-data-card">
+        <h5 class="card-header">Вхідні данні</h5>
+        <div class="card-body">
+            <div class="input-graph-block d-flex flex-column col-5 mx-auto my-4">
+                <button type="button" class="btn btn-light">Згенерувати рандомний граф</button>
+                <span class="text-muted text-center my-4">або</span>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Обрати файл</label>
+                </div>
+                <span class="text-muted text-center my-4">або</span>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Описати граф у формі</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center my-4">
+                <button type="button" class="btn btn-info">Отримати рішення</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card result-card">
+        <h5 class="card-header">
+            Результати
+        </h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                           role="tab" aria-controls="v-pills-home" aria-selected="true">Алгоритм Карнгіна-Ліна</a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+                           role="tab" aria-controls="v-pills-profile" aria-selected="false">Модифікований алгоритм</a>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                             aria-labelledby="v-pills-home-tab">...
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                             aria-labelledby="v-pills-profile-tab">...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
