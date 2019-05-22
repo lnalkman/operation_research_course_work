@@ -1,0 +1,51 @@
+{
+    "name": "boilerplate-babel-webpack",
+    "version": "1.0.6",
+    "description": "Starter with Babel.js and Webpack",
+    "license": "MIT",
+    "author": {
+        "name": "Piotr Kowalski",
+        "email": "piecioshka@gmail.com",
+        "url": "https://piecioshka.pl"
+    },
+    "scripts": {
+        "audit": "source-map-explorer public/dist/main.bundle.js",
+        "clear": "rm -rf public/dist/",
+        "clear:all": "rm -rf node_modules/ && npm run clear",
+        "count": "find src -name '*.js' | xargs wc -l | sort -r",
+        "build": "npm run build:development",
+        "build:development": "webpack --config webpack/webpack.config.dev.js",
+        "build:production": "webpack --config webpack/webpack.config.prod.js",
+        "watch": "npm run build:development -- -w",
+        "start": "node public/dist/main.bundle.js"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.4",
+        "@babel/preset-env": "^7.4.4",
+        "babel-loader": "^8.0.6",
+        "source-map-explorer": "^1.8.0",
+        "webpack": "^4.31.0",
+        "webpack-cli": "^3.3.2"
+    },
+    "keywords": [
+        "webpack",
+        "module",
+        "bundler",
+        "babel",
+        "starter",
+        "boilerplate",
+        "source map",
+        "explorer",
+        "count",
+        "loc",
+        "line of code"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/piecioshka/boilerplate-babel-webpack"
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "babel-polyfill": "^6.26.0"
+    }
+}
