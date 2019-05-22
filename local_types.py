@@ -3,5 +3,5 @@ from typing import (
     Set
 )
 
-Graph = Dict[int:Dict[int:int]]
+Graph = Dict[int, Dict[int, int]]
 Subgraph = Set[int]
