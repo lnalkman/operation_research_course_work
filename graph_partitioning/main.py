@@ -6,14 +6,18 @@ import aiohttp_jinja2
 import jinja2
 from aiohttp import web
 
-from graph_partitioning.views import index
+from graph_partitioning.views import (
+    index,
+    RandomGraphGeneration
+)
 
 
 PROJECT_ROOT = pathlib.Path(__file__).parent
 
 
 def setup_routes(app):
-    app.router.add_get('/', index)
+    app.router.add_get('/', index),
+    app.router.add_view('/random_graph/', RandomGraphGeneration)
 
     setup_static_routes(app)
 

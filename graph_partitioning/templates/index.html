@@ -47,22 +47,31 @@
     <div class="card input-data-card">
         <h5 class="card-header">Вхідні данні</h5>
         <div class="card-body">
-            <div class="input-graph-block d-flex flex-column col-5 mx-auto my-4">
-                <button type="button" class="btn btn-light">Згенерувати рандомний граф</button>
-                <span class="text-muted text-center my-4">або</span>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Обрати файл</label>
+            <form>
+                <div class="input-graph-block d-flex flex-column col-5 mx-auto my-4">
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-toggle="modal"
+                        data-target="#random-graph-generation-modal"
+                    >
+                        Згенерувати рандомний граф
+                    </button>
+                    <span class="text-muted text-center my-4">або</span>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="graph-file-input">
+                        <label class="custom-file-label" for="graph-file-input">Обрати файл</label>
+                    </div>
+                    <span class="text-muted text-center my-4">або</span>
+                    <div class="form-group">
+                        <label for="graph-description-input">Описати граф у формі</label>
+                        <textarea class="form-control" id="graph-description-input" rows="5"></textarea>
+                    </div>
                 </div>
-                <span class="text-muted text-center my-4">або</span>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Описати граф у формі</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                <div class="d-flex justify-content-center my-4">
+                    <button type="button" class="btn btn-info">Отримати рішення</button>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center my-4">
-                <button type="button" class="btn btn-info">Отримати рішення</button>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -90,6 +99,78 @@
                              aria-labelledby="v-pills-profile-tab">...
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="random-graph-generation-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Генерація випадкового графу</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="random-graph-nodes-count-input">
+                                    Кількість вершин
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    value="9"
+                                    id="random-graph-nodes-count-input"
+                                >
+                            </div>
+                            <div class="col">
+                                <label for="random-graph-edges-count-input">
+                                    Кількість ребер
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    value="12"
+                                    id="random-graph-edges-count-input"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-5">
+                            <div class="col">
+                                <label for="random-graph-edge-min-weight-input">
+                                    Мінімальна вага ребра
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    value="1"
+                                    id="random-graph-edge-min-weight-input"
+                                >
+                            </div>
+                            <div class="col">
+                                <label for="random-graph-edge-max-weight-input">
+                                    Максимальна вага ребра</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    value="10"
+                                    id="random-graph-edge-max-weight-input"
+                                >
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-primary">Згенерувати граф</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Відмінити</button>
                 </div>
             </div>
         </div>
