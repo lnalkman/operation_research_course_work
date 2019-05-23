@@ -21,8 +21,8 @@ class RandomGraphGeneration(web.View):
         'edges_count'
     )
     OPTIONAL_PARAMS = (
-        'min_edge_weight',
-        'max_edge_weight'
+        'edge_weight_from',
+        'edge_weight_to'
     )
 
     async def get(self):

@@ -117,7 +117,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="random-graph-description-form">
                         <div class="form-row">
                             <div class="col">
                                 <label for="random-graph-nodes-count-input">
@@ -128,6 +128,7 @@
                                     class="form-control"
                                     value="9"
                                     id="random-graph-nodes-count-input"
+                                    name="nodes_count"
                                 >
                             </div>
                             <div class="col">
@@ -139,6 +140,7 @@
                                     class="form-control"
                                     value="12"
                                     id="random-graph-edges-count-input"
+                                    name="edges_count"
                                 >
                             </div>
                         </div>
@@ -153,6 +155,7 @@
                                     class="form-control"
                                     value="1"
                                     id="random-graph-edge-min-weight-input"
+                                    name="edge_weight_from"
                                 >
                             </div>
                             <div class="col">
@@ -163,13 +166,20 @@
                                     class="form-control"
                                     value="10"
                                     id="random-graph-edge-max-weight-input"
+                                    name="edge_weight_to"
                                 >
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-primary">Згенерувати граф</button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="generate-random-graph-btn"
+                    >
+                        Згенерувати граф
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Відмінити</button>
                 </div>
             </div>
