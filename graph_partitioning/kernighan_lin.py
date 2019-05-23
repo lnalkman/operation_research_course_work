@@ -5,7 +5,7 @@ from typing import (
     Optional
 )
 
-from local_types import (
+from graph_partitioning.local_types import (
     Graph,
     Subgraph
 )

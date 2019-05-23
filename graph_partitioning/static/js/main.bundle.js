@@ -13076,7 +13076,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let graphDescriptionInput = document.querySelector('#graph-description-input');
-let randomGraphDescriptionForm = document.querySelector('#random-graph-description-form'); // Reading graph description from file and write to the textarea with graph description
+let randomGraphDescriptionForm = document.querySelector('#random-graph-description-form');
+let graphInputForm = document.querySelector('#graph-input-form');
+
+const formDataToObject = formData => {
+  let formDataAsObject = {};
+  formData.forEach((value, key) => {
+    formDataAsObject[key] = value;
+  });
+  return formDataAsObject;
+}; // Reading graph description from file and write to the textarea with graph description
+
 
 document.querySelector('#graph-file-input').addEventListener('change', event => {
   const reader = new FileReader();
@@ -13088,16 +13098,21 @@ document.querySelector('#graph-file-input').addEventListener('change', event => 
 
 document.querySelector('#generate-random-graph-btn').addEventListener('click', async event => {
   const graphDescriptionFormData = new FormData(randomGraphDescriptionForm);
-  let queryParams = {};
-  graphDescriptionFormData.forEach((value, key) => {
-    queryParams[key] = value;
-  });
   const response = await axios__WEBPACK_IMPORTED_MODULE_1__["get"]('/random_graph/', {
-    params: queryParams
+    params: formDataToObject(graphDescriptionFormData)
   });
   const graph = response.data.data;
   graphDescriptionInput.value = graph.map(edge => edge.join(', ')).join('\n');
   $(document.querySelector('#random-graph-generation-modal')).modal('hide');
+});
+graphInputForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  event.stopPropagation();
+  let formData = new FormData(graphInputForm);
+  const response = await axios__WEBPACK_IMPORTED_MODULE_1__["get"]('/kernighan_lin/', {
+    params: formDataToObject(formData)
+  });
+  console.log(response.data);
 });
 
 /***/ })

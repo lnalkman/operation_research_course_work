@@ -8,7 +8,8 @@ from aiohttp import web
 
 from graph_partitioning.views import (
     index,
-    RandomGraphGeneration
+    RandomGraphGeneration,
+    KernighanLinSolve
 )
 
 
@@ -16,8 +17,9 @@ PROJECT_ROOT = pathlib.Path(__file__).parent
 
 
 def setup_routes(app):
-    app.router.add_get('/', index),
+    app.router.add_get('/', index)
     app.router.add_view('/random_graph/', RandomGraphGeneration)
+    app.router.add_view('/kernighan_lin/', KernighanLinSolve)
 
     setup_static_routes(app)
 

@@ -3,7 +3,8 @@ from typing import (
     Optional,
     Tuple,
     Iterable,
-    Any
+    Any,
+    Set
 )
 
 from networkx import gnm_random_graph
@@ -60,3 +61,39 @@ def generate_random_graph(
         graph[first][second] = graph[second][first] = weight
 
     return graph
+
+
+def get_sequential_partitioning(nodes_count: int) -> Tuple[Set[int], ...]:
+    """
+    Return tuple with 3 graph partitions, every graph node sequentially
+    distributed on partitions (first partition will have first nodes, second
+    partition will have nodes after first partition...)
+    """
+    avg_nodes_per_partition, rest_nodes = (nodes_count // 3, nodes_count % 3)
+
+    if rest_nodes:
+        first_partition = (0, avg_nodes_per_partition + 1)
+    else:
+        first_partition = (0, avg_nodes_per_partition)
+
+    if rest_nodes == 2:
+        second_partition = (
+            first_partition[1],
+            first_partition[1] + avg_nodes_per_partition + 1
+        )
+    else:
+        second_partition = (
+            first_partition[1],
+            first_partition[1] + avg_nodes_per_partition
+        )
+
+    third_partition = (
+        second_partition[1],
+        second_partition[1] + avg_nodes_per_partition
+    )
+    
+    return (
+        set(range(*first_partition)),
+        set(range(*second_partition)),
+        set(range(*third_partition))
+    )
