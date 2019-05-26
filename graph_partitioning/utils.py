@@ -9,7 +9,10 @@ from typing import (
 
 from networkx import gnm_random_graph
 
-from graph_partitioning.local_types import Graph
+from graph_partitioning.local_types import (
+    Graph,
+    Subgraph
+)
 
 
 class ErrorCodes:
@@ -97,3 +100,15 @@ def get_sequential_partitioning(nodes_count: int) -> Tuple[Set[int], ...]:
         set(range(*second_partition)),
         set(range(*third_partition))
     )
+
+
+def get_partitions_cost(graph: Graph, partitions: Tuple[Subgraph, ...]) -> int:
+    """Count summary weights of edges that connect different partitions"""
+    partitions_cost = 0
+    for partition in partitions:
+        for node in partition:
+            for other_node in graph[node]:
+                if other_node not in partition:
+                    partitions_cost += graph[node][other_node]
+
+    return partitions_cost

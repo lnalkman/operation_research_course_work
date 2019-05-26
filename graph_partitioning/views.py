@@ -14,6 +14,7 @@ from graph_partitioning.kernighan_lin import (
 from graph_partitioning.utils import (
     ErrorCodes,
     generate_random_edges,
+    get_partitions_cost,
     get_sequential_partitioning,
 )
 
@@ -87,9 +88,12 @@ class RandomGraphGeneration(web.View):
 
 
 class KernighanLinSolve(web.View):
+    GRAPH_DESCRIPTION_FIELD_NAME = 'graph_description'
 
     def get_graph(self):
-        graph_string = self.request.query.getone('graph_description')
+        graph_string = self.request.query.getone(
+            self.GRAPH_DESCRIPTION_FIELD_NAME
+        )
         graph = defaultdict(dict)
         for line in graph_string.split('\r\n'):
             first_node, second_node, weight = (
@@ -125,30 +129,47 @@ class KernighanLinSolve(web.View):
                 )
                 precise_kernighan_time = time.time() - start
         except Exception as e:
-            return web.Response(body=str(e))
+            return web.json_response({
+                'success': False,
+                'data': {
+                    'field': self.GRAPH_DESCRIPTION_FIELD_NAME,
+                    'code': ErrorCodes.INVALID_VALUE,
+                    'text': 'Невірно заданий граф'
+                }
+            })
 
         return web.json_response(
             {
                 'success': True,
                 'data': {
+                    'graph': graph,
                     'kernighan_lin': {
-                        'partition': [
+                        'partitions': [
                             list(partition)
                             for partition in fast_kernighan_partition
                         ],
-                        'target_function': 55,
+                        'target_function': get_partitions_cost(
+                            graph,
+                            fast_kernighan_partition
+                        ),
                         'time': fast_kernighan_time
                     },
                     'modified_algorithm': {
-                        'partition': precise_kernighan_partition and [
+                        'partitions': precise_kernighan_partition and [
                             list(partition)
                             for partition in
                             fast_kernighan_partition
                         ],
-                        'target_function': 55,
+                        'target_function': (
+                            precise_kernighan_partition and
+                            get_partitions_cost(
+                                graph,
+                                precise_kernighan_partition
+                            )
+                        ),
                         'time': (
-                                precise_kernighan_partition and
-                                precise_kernighan_time
+                            precise_kernighan_partition and
+                            fast_kernighan_time + precise_kernighan_time
                         )
                     }
                 }
