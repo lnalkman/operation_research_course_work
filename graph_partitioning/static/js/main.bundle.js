@@ -73049,7 +73049,7 @@ graphInputForm.addEventListener('submit', async event => {
           from: node,
           to: connectedNode,
           // Edge weight
-          label: graph[node][connectedNode]
+          label: String(graph[node][connectedNode])
         });
       }
     }
@@ -73099,6 +73099,21 @@ graphInputForm.addEventListener('submit', async event => {
     edges
   };
   new vis__WEBPACK_IMPORTED_MODULE_2__["Network"](modifiedAlgorithmGraphContainer, modifiedAlgorithmNetworkData, networkOptions);
+  document.querySelector('.kernighan-lin-result .target-function-value').textContent = kernighanLinInfo.target_function;
+  document.querySelector('.kernighan-lin-result .time-to-complete').textContent = kernighanLinInfo.time;
+  let partitionContainers = document.querySelectorAll('.kernighan-lin-result .partition-nodes');
+
+  for (let partition = 0; partition < 3; partition++) {
+    partitionContainers[partition].textContent = kernighanLinPartitions[partition].join(', ');
+  }
+
+  document.querySelector('.modified-algorithm-result .target-function-value').textContent = modifiedAlgorithmInfo.target_function;
+  document.querySelector('.modified-algorithm-result .time-to-complete').textContent = modifiedAlgorithmInfo.time;
+  partitionContainers = document.querySelectorAll('.modified-algorithm-result .partition-nodes');
+
+  for (let partition = 0; partition < 3; partition++) {
+    partitionContainers[partition].textContent = modifiedAlgorithmPartitions[partition].join(', ');
+  }
 });
 
 /***/ })
