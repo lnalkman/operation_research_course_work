@@ -37,14 +37,30 @@ def generate_random_edges(
         n=nodes_count,
         m=edges_count
     ).edges
-    return tuple(
-        (
-            first_edge,
-            second_edge,
-            random.randint(edge_weight_from, edge_weight_to)
+
+    alone_nodes = {i for i in range(nodes_count)}
+    for first_edge, second_edge in edges_view:
+        if first_edge in alone_nodes:
+            alone_nodes.remove(first_edge)
+        if second_edge in alone_nodes:
+            alone_nodes.remove(second_edge)
+
+    if alone_nodes:
+        return generate_random_edges(
+            nodes_count,
+            edges_count,
+            edge_weight_from,
+            edge_weight_to
         )
-        for first_edge, second_edge in edges_view
-    )
+    else:
+        return tuple(
+            (
+                first_edge + 1,
+                second_edge + 1,
+                random.randint(edge_weight_from, edge_weight_to)
+            )
+            for first_edge, second_edge in edges_view
+        )
 
 
 def generate_random_graph(
@@ -96,9 +112,9 @@ def get_sequential_partitioning(nodes_count: int) -> Tuple[Set[int], ...]:
     )
     
     return (
-        set(range(*first_partition)),
-        set(range(*second_partition)),
-        set(range(*third_partition))
+        set(i + 1 for i in range(*first_partition)),
+        set(i + 1 for i in range(*second_partition)),
+        set(i + 1 for i in range(*third_partition))
     )
 
 

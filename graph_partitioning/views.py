@@ -158,7 +158,7 @@ class KernighanLinSolve(web.View):
                         'partitions': precise_kernighan_partition and [
                             list(partition)
                             for partition in
-                            fast_kernighan_partition
+                            precise_kernighan_partition
                         ],
                         'target_function': (
                             precise_kernighan_partition and

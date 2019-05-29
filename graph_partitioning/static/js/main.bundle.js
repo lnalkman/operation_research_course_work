@@ -73039,7 +73039,13 @@ graphInputForm.addEventListener('submit', async event => {
   const data = response.data.data;
   const graph = data.graph;
   const kernighanLinInfo = data.kernighan_lin;
-  const modifiedAlgorithmInfo = data.modified_algorithm;
+  let modifiedAlgorithmInfo = data.modified_algorithm;
+
+  if (modifiedAlgorithmInfo === null) {
+    modifiedAlgorithmInfo = kernighanLinInfo;
+  }
+
+  console.log(modifiedAlgorithmInfo);
   let edges = [];
 
   for (const node of Object.keys(graph)) {
