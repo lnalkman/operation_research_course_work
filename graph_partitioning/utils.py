@@ -124,7 +124,6 @@ def get_partitions_cost(graph: Graph, partitions: Tuple[Subgraph, ...]) -> int:
     for partition in partitions:
         for node in partition:
             for other_node in graph[node]:
-                if other_node not in partition:
+                if other_node > node and other_node not in partition:
                     partitions_cost += graph[node][other_node]
-
     return partitions_cost
