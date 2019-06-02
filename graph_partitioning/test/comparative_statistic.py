@@ -21,7 +21,7 @@ fixtures_names = os.listdir(fixtures_directory)
 
 def with_time(func):
     def inner(*args, **kwargs):
-        start = time.time_ns()
+        start = time.time()
         return func(*args, **kwargs), time.time() - start
 
     return inner
@@ -30,48 +30,60 @@ fast_kernighan_lin = with_time(fast_kernighan_lin)
 precise_kernighan_lin = with_time(precise_kernighan_lin)
 
 
-for fixture_name in fixtures_names:
-    fixture_path = os.path.join(
-        fixtures_directory,
-        fixture_name
+def print_comparative_statistic():
+    print(
+        'Filename',
+        'Fast Kernighan Lin time',
+        'Precise Kernighan Lin time',
+        'Fast Kernighan Lin result',
+        'Precise Kernighan Lin result',
+        sep=','
     )
-    with open(fixture_path) as f:
-        edges = (
-            [int(d) for d in line.split(', ')]
-            for line in f.readlines()
+    for fixture_name in filter(lambda f: f.startswith('100_'), fixtures_names):
+        fixture_path = os.path.join(
+            fixtures_directory,
+            fixture_name
         )
-        graph = defaultdict(dict)
-        for edge in edges:
-            graph[edge[0]][edge[1]] = edge[2]
-            graph[edge[1]][edge[0]] = edge[2]
+        with open(fixture_path) as f:
+            edges = (
+                [int(d) for d in line.split(', ')]
+                for line in f.readlines()
+            )
+            graph = defaultdict(dict)
+            for edge in edges:
+                graph[edge[0]][edge[1]] = edge[2]
+                graph[edge[1]][edge[0]] = edge[2]
 
-    nodes_count = len(graph.keys())
-    fast_kernighan_partition = get_sequential_partitioning(nodes_count)
-    precise_kernighan_partition = get_sequential_partitioning(nodes_count)
+        nodes_count = len(graph.keys())
+        fast_kernighan_partition = get_sequential_partitioning(nodes_count)
+        precise_kernighan_partition = get_sequential_partitioning(nodes_count)
 
-    _, fast_kernighan_time = fast_kernighan_lin(
-        graph,
-        fast_kernighan_partition
-    )
-    _, precise_kernighan_time = precise_kernighan_lin(
-        graph,
-        precise_kernighan_partition
-    )
-    time_difference_percent = fast_kernighan_time / precise_kernighan_time * 100
+        _, fast_kernighan_time = fast_kernighan_lin(
+            graph,
+            fast_kernighan_partition
+        )
+        _, precise_kernighan_time = precise_kernighan_lin(
+            graph,
+            precise_kernighan_partition
+        )
 
-    fast_kernighan_result = get_partitions_cost(
-        graph,
-        fast_kernighan_partition
-    )
-    precise_kernighan_result = get_partitions_cost(
-        graph,
-        precise_kernighan_partition
-    )
-    result_difference_percent = (
-            100 - precise_kernighan_result / fast_kernighan_result * 100
-    )
+        fast_kernighan_result = get_partitions_cost(
+            graph,
+            fast_kernighan_partition
+        )
+        precise_kernighan_result = get_partitions_cost(
+            graph,
+            precise_kernighan_partition
+        )
 
-    print(time_difference_percent, result_difference_percent)
+        print(
+            fixture_name,
+            '{:.6f}'.format(fast_kernighan_time),
+            '{:.6f}'.format(precise_kernighan_time),
+            fast_kernighan_result,
+            precise_kernighan_result,
+            sep=','
+        )
 
 
 
