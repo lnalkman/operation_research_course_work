@@ -35,7 +35,7 @@ npyscreen==4.10.5
 packaging==19.0
 pacman-mirrors==4.14.1
 pep517==0.5.0
-Pillow==5.4.1
+Pillow==6.2.0
 poyo==0.4.2
 progress==1.4
 pycairo==1.18.0
